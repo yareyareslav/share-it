@@ -16,7 +16,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDto getUserById(Long id) {
+        return null;
+    }
+
+    @Override
     public User saveUser(User user) {
         return userRepository.save(user);
+    }
+
+    @Override
+    public UserDto updateUser(Long id) {
+        return null;
     }
 }

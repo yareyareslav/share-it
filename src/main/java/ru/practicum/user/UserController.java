@@ -16,6 +16,16 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    @GetMapping("/{id}")
+    public UserDto getUser(@PathVariable Long id) {
+        return userService.getUserById(id);
+    }
+
+    @PutMapping("/{id}")
+    public UserDto updateUser(@PathVariable Long id) {
+        return userService.updateUser(id);
+    }
+
     @PostMapping
     public User saveNewUser(@RequestBody User user) {
         return userService.saveUser(user);

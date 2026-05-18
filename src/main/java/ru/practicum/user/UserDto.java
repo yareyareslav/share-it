@@ -1,16 +1,15 @@
 package ru.practicum.user;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
-public class User {
-    @NotNull
-    private Long id;
+public class UserDto {
+    private Long userId;
     @NotBlank
     private String email;
     @NotBlank
