@@ -3,11 +3,13 @@ package ru.practicum.user;
 import java.util.List;
 
 public interface UserService {
-    List<User> getAllUsers();
+    List<UserDto> getAllUsers();
 
     UserDto getUserById(Long id);
 
-    User saveUser(User user);
+    UserDto createUser(User user);
 
-    UserDto updateUser(Long id);
+    UserDto updateUser(Long id, UserDto userDto);
+
+    void deleteUser(Long id);
 }

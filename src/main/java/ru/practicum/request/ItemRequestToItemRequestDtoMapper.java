@@ -7,8 +7,9 @@ public class ItemRequestToItemRequestDtoMapper implements TwoWayMapper<ItemReque
     public ItemRequest toData(ItemRequestDto itemRequestDto) {
         return new ItemRequest(
                 itemRequestDto.getId(),
-                itemRequestDto.getUserId(),
-                itemRequestDto.getRequestedItem()
+                itemRequestDto.getDescription(),
+                itemRequestDto.getRequestor(),
+                null
         );
     }
 
@@ -16,8 +17,8 @@ public class ItemRequestToItemRequestDtoMapper implements TwoWayMapper<ItemReque
     public ItemRequestDto toPresentation(ItemRequest itemRequest) {
         return new ItemRequestDto(
                 itemRequest.getId(),
-                itemRequest.getUserId(),
-                itemRequest.getRequestedItem()
+                itemRequest.getRequestor(),
+                itemRequest.getDescription()
         );
     }
 }

@@ -1,6 +1,7 @@
 package ru.practicum.item;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,11 +11,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ItemDto {
     private Long id;
-    private Long ownerId;
     @NotBlank
     private String name;
-    private String description;
     @NotBlank
-    private Boolean isAvailableForRent;
-
+    private String description;
+    @NotNull
+    private Boolean available;
+    private Long request;
 }

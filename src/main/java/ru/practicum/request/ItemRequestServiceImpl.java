@@ -1,9 +1,11 @@
 package ru.practicum.request;
 
+import org.springframework.stereotype.Service;
 import ru.practicum.item.ItemDto;
 
 import java.util.List;
 
+@Service
 public class ItemRequestServiceImpl implements ItemRequestService {
     @Override
     public List<ItemDto> getAllItems() {

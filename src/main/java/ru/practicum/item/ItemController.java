@@ -2,7 +2,9 @@ package ru.practicum.item;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.shared.error.BadRequestException;
 
 import java.util.List;
 
@@ -10,31 +12,43 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/items")
 public class ItemController {
+    private static final String SHARER_USER_ID_HEADER = "X-Sharer-User-Id";
+
     private final ItemService itemService;
 
-    @GetMapping
-    public List<ItemDto> getAllItems() {
-        return itemService.getAllItems();
-    }
-
-    @GetMapping("/{id}")
-    public ItemDto getItem(@PathVariable @Valid Long id) {
-        return itemService.getItemById(id);
-    }
-
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public ItemDto createItem(
-            @RequestHeader(value = "X-Sharer-User-Id") Long userId,
-            @RequestBody @Valid ItemDto itemDto
+            @RequestHeader(SHARER_USER_ID_HEADER) Long userId,
+            @Valid @RequestBody ItemDto itemDto
     ) {
+        if (userId == null) {
+            throw new BadRequestException(SHARER_USER_ID_HEADER + " не должен быть пустым");
+        }
         return itemService.createItem(userId, itemDto);
     }
 
-    @PatchMapping
+    @PatchMapping("/{itemId}")
     public ItemDto updateItem(
-            @RequestHeader(value = "X-Sharer-User-Id") Long userId,
-            @RequestBody @Valid ItemDto itemDto
+            @PathVariable Long itemId,
+            @RequestHeader(SHARER_USER_ID_HEADER) Long userId,
+            @RequestBody ItemDto itemDto
     ) {
-        return itemService.updateItem(itemDto);
+        return itemService.updateItem(userId, itemId, itemDto);
+    }
+
+    @GetMapping("/{itemId}")
+    public ItemDto getItem(@PathVariable Long itemId) {
+        return itemService.getItemById(itemId);
+    }
+
+    @GetMapping
+    public List<ItemDto> getOwnerItems(@RequestHeader(SHARER_USER_ID_HEADER) Long userId) {
+        return itemService.getItemsByOwner(userId);
+    }
+
+    @GetMapping("/search")
+    public List<ItemDto> searchItems(@RequestParam String text) {
+        return itemService.searchItems(text);
     }
 }

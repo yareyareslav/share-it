@@ -1,6 +1,6 @@
 package ru.practicum.booking;
 
-import jakarta.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,14 +12,11 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class BookingDto {
     private Long id;
-    @NotNull
-    private Long userId;
-    @NotNull
-    private Long itemId;
-    @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate startRentDate;
-    @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate endRentDate;
-    @NotNull
-    private Boolean isSubmittedByOwner;
+    private Long itemId;
+    private Long bookerId;
+    private BookingStatus status;
 }
