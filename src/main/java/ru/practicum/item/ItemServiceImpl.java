@@ -33,9 +33,6 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ItemDto createItem(Long ownerId, ItemDto itemDto) {
-//        if (itemDto.getAvailable() == null) {
-//            throw new BadRequestException("Поле available не должно быть пустым");
-//        }
         User owner = getUserOrThrow(ownerId);
         Item item = new Item(
                 null,
